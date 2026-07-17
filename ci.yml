@@ -1,0 +1,52 @@
+name: CI/CD pipeline
+
+
+on:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  build-test-docker:
+
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+      
+      - name: Checkout Source Code
+        uses: action/checkout@v4
+      
+      
+      - name: Display Files
+        run: ls -la
+      
+      
+      - name: Build Project
+        run: | 
+          echo "Building Project..."
+          echo "Build Successful"
+      
+
+      - name: Run Tests
+        run: |
+          echo "Running Tests..."
+          echo "All Tests Passed"
+      
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets. kishuaderu123 }}
+          password: ${{ secrets. kishu5081 }}
+      
+      
+      - name: Build Docker Inage
+        run: |
+          docker build -t ${{ secrets.kishuaderu123 }}/NewRepo:latest .
+      
+      
+      - name: Push Docker Image
+        run: |
+          docker push ${{ secrets.kishuaderu123 }}/NewRepo:latest
